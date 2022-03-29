@@ -76,5 +76,4 @@ public class Attribute {
         weights = tmp;
         return Main.threshold - result * Main.learningRate;
     }
-
 }

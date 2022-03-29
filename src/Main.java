@@ -4,11 +4,10 @@ public class Main {
 
     protected static String trainingPath;
     protected static String testingPath;
-    protected static int vectorDimensionality, maxIterations = 80;
+    protected static int vectorDimensionality, maxIterations = 30;
     protected static ArrayList<Attribute> trainingAttributes = new ArrayList<>();
     protected static ArrayList<Attribute> testingAttributes = new ArrayList<>();
     protected static float learningRate, threshold = 1;
-
 
     public static void main(String[] args) {
         if (args.length == 3) {
@@ -36,11 +35,19 @@ public class Main {
             for (Attribute a : trainingAttributes) {
                 int d = Integer.parseInt(a.decision);
                 int y = Attribute.output(a);
+
                 System.out.println("\nWeights before: " + Attribute.weights + " Threshold before: " + threshold);
+
                 threshold = Attribute.updateWeightsAndTheta(d, y, a);
+
                 System.out.println("Weights after: " + Attribute.weights + " Threshold after: " + threshold);
             }
         }
+        //testing
+        System.out.println("/=====================\nTesting set:\n");
+        for (Attribute test: testingAttributes ) {
+            int output = Attribute.output(test);
+            System.out.println("Expected: " + test.decision + " delivered: " + output);
+        }
     }
-
 }
