@@ -14,12 +14,14 @@ public class Attribute {
 
     public Attribute(ArrayList<Float> vector, String decision) {
         this.vector = vector;
-        if (decision.equalsIgnoreCase("Iris-versicolor")) //Iris-versicolor == 1
-            this.decision = "1";
-        else if (decision.equalsIgnoreCase("Iris-virginica")) // Iris-virginica == 0
-            this.decision = "0";
-        else
-            this.decision = decision;
+        if (CLI.flag == 0) {
+            if (decision.equalsIgnoreCase("Iris-versicolor")) //Iris-versicolor == 1
+                this.decision = "1";
+            else if (decision.equalsIgnoreCase("Iris-virginica")) // Iris-virginica == 0
+                this.decision = "0";
+            else
+                this.decision = decision;
+        }
     }
 
     protected static void initializeWeights() {

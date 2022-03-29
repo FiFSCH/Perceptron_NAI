@@ -27,27 +27,15 @@ public class Main {
         Attribute.insertAttributes(trainingPath, trainingAttributes, 1);
         Attribute.insertAttributes(testingPath, testingAttributes, 0);
         Attribute.initializeWeights();
-        System.out.println("\nTraining set location: " + Main.trainingPath + "\nTesting set location: " + Main.testingPath
-                + "\nLearning rate: " + Main.learningRate + "\nVector Dimensionality: " + Main.vectorDimensionality
-                + "\nFound Decision attributes: " + Attribute.decisionAttributes + "\n");
 
         for (int i = 0; i < maxIterations; i++) {
             for (Attribute a : trainingAttributes) {
                 int d = Integer.parseInt(a.decision);
                 int y = Attribute.output(a);
 
-                System.out.println("\nWeights before: " + Attribute.weights + " Threshold before: " + threshold);
-
                 threshold = Attribute.updateWeightsAndTheta(d, y, a);
-
-                System.out.println("Weights after: " + Attribute.weights + " Threshold after: " + threshold);
             }
         }
-        //testing
-        System.out.println("/=====================\nTesting set:\n");
-        for (Attribute test: testingAttributes ) {
-            int output = Attribute.output(test);
-            System.out.println("Expected: " + test.decision + " delivered: " + output);
-        }
+        CLI.Menu();
     }
 }
