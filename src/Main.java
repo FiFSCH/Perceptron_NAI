@@ -4,7 +4,7 @@ public class Main {
 
     protected static String trainingPath;
     protected static String testingPath;
-    protected static int vectorDimensionality;
+    protected static int vectorDimensionality, maxIterations = 80;
     protected static ArrayList<Attribute> trainingAttributes = new ArrayList<>();
     protected static ArrayList<Attribute> testingAttributes = new ArrayList<>();
     protected static float learningRate, threshold = 1;
@@ -27,10 +27,20 @@ public class Main {
         }
         Attribute.insertAttributes(trainingPath, trainingAttributes, 1);
         Attribute.insertAttributes(testingPath, testingAttributes, 0);
+        Attribute.initializeWeights();
         System.out.println("\nTraining set location: " + Main.trainingPath + "\nTesting set location: " + Main.testingPath
                 + "\nLearning rate: " + Main.learningRate + "\nVector Dimensionality: " + Main.vectorDimensionality
                 + "\nFound Decision attributes: " + Attribute.decisionAttributes + "\n");
 
+        for (int i = 0; i < maxIterations; i++) {
+            for (Attribute a : trainingAttributes) {
+                int d = Integer.parseInt(a.decision);
+                int y = Attribute.output(a);
+                System.out.println("\nWeights before: " + Attribute.weights + " Threshold before: " + threshold);
+                threshold = Attribute.updateWeightsAndTheta(d, y, a);
+                System.out.println("Weights after: " + Attribute.weights + " Threshold after: " + threshold);
+            }
+        }
     }
 
 }
