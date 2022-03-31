@@ -30,7 +30,13 @@ public class Main {
 
         for (int i = 0; i < maxIterations; i++) {
             for (Attribute a : trainingAttributes) {
-                int d = Integer.parseInt(a.decision);
+                int d;
+                try {
+                    d = Integer.parseInt(a.decision);
+                } catch (Exception e) {
+                    d = Attribute.decisionAttributes.indexOf(a.decision);
+                }
+
                 int y = Attribute.output(a);
 
                 threshold = Attribute.updateWeightsAndTheta(d, y, a);

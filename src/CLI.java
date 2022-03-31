@@ -15,7 +15,7 @@ public class CLI {
         format.setDecimalFormatSymbols(symbol);
         Scanner scan = new Scanner(System.in);
 
-        while ( finish ) {
+        while (finish) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -38,8 +38,12 @@ public class CLI {
                     int correct = 0;
                     for (Attribute test : Main.testingAttributes) {
                         int output = Attribute.output(test);
-                        if (Integer.parseInt(test.decision) == output) {
-                            correct++;
+                        try {
+                            if (Integer.parseInt(test.decision) == output)
+                                correct++;
+                        } catch (Exception e) {
+                            if (Attribute.decisionAttributes.indexOf(test.decision) == output)
+                                correct++;
                         }
                     }
                     System.out.println("Correct: " + correct + "/" + Main.testingAttributes.size());

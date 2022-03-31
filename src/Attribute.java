@@ -15,12 +15,11 @@ public class Attribute {
     public Attribute(ArrayList<Float> vector, String decision) {
         this.vector = vector;
         if (CLI.flag == 0) {
-            if (decision.equalsIgnoreCase("Iris-versicolor")) //Iris-versicolor == 1
-                this.decision = "1";
-            else if (decision.equalsIgnoreCase("Iris-virginica")) // Iris-virginica == 0
-                this.decision = "0";
-            else
+            try {
                 this.decision = decision;
+            } catch (Exception e) {
+                this.decision = String.valueOf(decisionAttributes.indexOf(decision));
+            }
         }
     }
 
@@ -36,7 +35,7 @@ public class Attribute {
             BufferedReader reader = new BufferedReader(new FileReader(path));
             String line = reader.readLine();
 
-            while ( line != null ) {
+            while (line != null) {
                 String[] whichDataSet = line.split(",");
                 Main.vectorDimensionality = whichDataSet.length - 1;
                 ArrayList<Float> tmp = new ArrayList<>();
@@ -61,7 +60,7 @@ public class Attribute {
 
         float output = 0.0f;
         for (int i = 0; i < attribute.vector.size(); i++) {
-            output = attribute.vector.get(i) * weights.get(i);
+            output += attribute.vector.get(i) * weights.get(i);
         }
         if (output >= Main.threshold) {
             return 1;
